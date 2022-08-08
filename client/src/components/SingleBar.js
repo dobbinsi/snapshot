@@ -81,7 +81,7 @@ const SingleBar = () => {
     datasets: [
       {
         data: normAmounts,
-        backgroundColor: "#fdf26f",
+        backgroundColor: "#ffab33",
         borderColor: ["#4b423f"],
         borderWidth: 0.75,
       },

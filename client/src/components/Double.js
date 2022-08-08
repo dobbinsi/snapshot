@@ -34,7 +34,7 @@ const Double = () => {
       {
         label: "# of Spaces",
         data: partChartWallets,
-        backgroundColor: ["#ffab33", "#fff202", "#e5e7eb", "#fdf26f"],
+        backgroundColor: ["#ffab33", "#eec551", "#fdf26f", "#feffa0"],
         borderColor: ["#4b423f"],
         borderWidth: 1.5,
       },
