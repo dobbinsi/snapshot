@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 
 * {
   margin: 0;
@@ -56,7 +56,7 @@ a:visited {
   color: #ffffff;
 }
 
-.single {
+.single-main {
   margin: auto;
   padding: 20px;
   background-color: transparent;
@@ -67,10 +67,11 @@ a:visited {
   margin-bottom: 20px;
 }
 
-.single-topper {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+.single-bar {
+  margin: auto;
+  width: 90%;
+  padding: 20px;
+  margin-bottom: 40px;
 }
 
 .chart-area {
@@ -81,27 +82,21 @@ a:visited {
 
 .double {
   margin: auto;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   background-color: transparent;
-  margin-bottom: 20px;
+  /* margin-bottom: 40px; */
+  /* margin-top: -40px; */
+  column-gap: 10px;
 }
 
 .small-chart-area {
   min-height: 150px;
-  width: 42%;
+  width: 28%;
   padding: 20px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  border-style: solid;
-  border-color: #000000;
-}
-
-.table-title {
-  text-align: center;
-  font-weight: lighter;
-  color: #ffffff;
-  margin: 20px 0px;
+  /* border-radius: 5px;
+  border: 0.5px solid #8b949e; */
 }
 
 .table-main {
@@ -109,7 +104,7 @@ a:visited {
   width: 90%;
   margin: auto;
   box-shadow: 0 0 20px #00000026;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   margin-bottom: 20px;
   color: #8b949e;
@@ -182,11 +177,6 @@ th.first-column {
     min-width: 90%;
     margin: auto;
     padding: 20px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: #000000;
-    margin-bottom: 20px;
   }
 }
 
@@ -197,7 +187,53 @@ th.first-column {
 }
 
 .footnote {
-  font-size:medium;
+  font-size: medium;
   text-align: end;
 }
 
+.title-date {
+  width: 90%;
+  margin: auto;
+}
+
+.title-date div {
+  flex: auto;
+}
+
+.date-toggle {
+  text-align: right;
+  font-weight: bold;
+}
+
+.triple {
+  margin: auto;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.big-numbers {
+  width: 30%;
+  padding: 30px;
+  text-align: center;
+}
+
+.big-numbers h1 {
+  color: #ffab33;
+  margin-bottom: 10px;
+}
+
+.gap {
+  margin-top: 50px;
+}
+
+.bar-title {
+  margin-left: -40px;
+}
+
+.title-date-bar {
+  width: 90%;
+  margin: auto;
+  margin-top: 40px;
+}

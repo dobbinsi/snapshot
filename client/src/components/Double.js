@@ -1,40 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Chart as ChartJS, ArcElement, Title, Tooltip, Legend } from "chart.js";
-import { Pie, Doughnut } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 
 const Double = () => {
-  const [voterDistribution, setVoterDistribution] = useState([]);
   const [participation, setParticipation] = useState([]);
 
-  voterDistribution.sort(compare);
   participation.sort(compareTwo);
 
-  const distChartLevels = voterDistribution.map((item) => {
-    return item["LEVELS"];
-  });
-  const distChartWallets = voterDistribution.map((item) => {
-    return item["NUMBER_OF_NFTS"];
-  });
   const partChartWallets = participation.map((item) => {
     return item["WALLET_COUNT"];
   });
   const partChartStatus = participation.map((item) => {
     return item["WALLET_CATEGORY"];
   });
-
-  function compare(a, b) {
-    const nameA = a.LEVELS;
-    const nameB = b.LEVELS;
-
-    let comparison = 0;
-    if (nameA > nameB) {
-      comparison = 1;
-    } else if (nameA < nameB) {
-      comparison = -1;
-    }
-    return comparison;
-  }
 
   function compareTwo(a, b) {
     const nameA = a.WALLET_CATEGORY;
@@ -49,89 +28,96 @@ const Double = () => {
     return comparison;
   }
 
-  const distChartData = {
-    labels: distChartLevels,
-    datasets: [
-      {
-        label: "# of Voters",
-        data: distChartWallets,
-        backgroundColor: [
-          "#308d89",
-          "#27a17a",
-          "#d1c8b6",
-          "#c8ece0",
-          "#e76d48",
-        ],
-        borderColor: ["#4b423f"],
-        borderWidth: 1.5,
-      },
-    ],
-  };
-
-  const distChartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "bottom",
-        align: "start",
-        labels: {
-          font: {
-            size: 11,
-            family: "'Maven Pro', sans-serif",
-          },
-        },
-      },
-      title: {
-        display: true,
-        text: "Cumulative NFT Level (Unique Wallets)",
-        font: {
-          size: 18,
-          family: "'Maven Pro', sans-serif",
-          weight: "lighter",
-        },
-      },
-    },
-  };
-
   const partChartData = {
     labels: partChartStatus,
     datasets: [
       {
-        label: "# of Wallets",
+        label: "# of Spaces",
         data: partChartWallets,
-        backgroundColor: ["#308d89", "#27a17a", "#c8ece0", "#e76d48"],
+        backgroundColor: ["#ffab33", "#fff202", "#e5e7eb", "#fdf26f"],
         borderColor: ["#4b423f"],
         borderWidth: 1.5,
       },
     ],
   };
 
-  const partChartOptions = {
+  const partChartOptions1 = {
     responsive: true,
-    layout: {
-      padding: {
-        bottom: 20,
-      },
-    },
     plugins: {
       legend: {
         position: "bottom",
         align: "start",
         labels: {
           font: {
-            size: 11,
-            family: "'Maven Pro', sans-serif",
+            size: 8,
+            family: "'Roboto', sans-serif",
           },
+          color: "#8b949e",
         },
       },
       title: {
         display: true,
-        text: "Voter Participation (Current NFT Holders)",
+        text: "Most Active by Category (7d)",
         font: {
           size: 18,
-          family: "'Maven Pro', sans-serif",
+          family: "'Roboto', sans-serif",
           weight: "lighter",
         },
+        color: "#8b949e",
+      },
+    },
+  };
+
+  const partChartOptions2 = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "bottom",
+        align: "start",
+        labels: {
+          font: {
+            size: 8,
+            family: "'Roboto', sans-serif",
+          },
+          color: "#8b949e",
+        },
+      },
+      title: {
+        display: true,
+        text: "Most Active by Category (30d)",
+        font: {
+          size: 18,
+          family: "'Roboto', sans-serif",
+          weight: "lighter",
+        },
+        color: "#8b949e",
+      },
+    },
+  };
+
+  const partChartOptions3 = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "bottom",
+        align: "start",
+        labels: {
+          font: {
+            size: 8,
+            family: "'Roboto', sans-serif",
+          },
+          color: "#8b949e",
+        },
+      },
+      title: {
+        display: true,
+        text: "Most Active by Category (90d)",
+        font: {
+          size: 18,
+          family: "'Roboto', sans-serif",
+          weight: "lighter",
+        },
+        color: "#8b949e",
       },
     },
   };
@@ -149,30 +135,17 @@ const Double = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://node-api.flipsidecrypto.com/api/v2/queries/8253d6f3-a9ac-4fda-a811-9ce98087a323/data/latest"
-      )
-      .then((res) => {
-        setVoterDistribution(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   return (
     <div className="double">
       <div className="small-chart-area">
-        <Pie options={distChartOptions} data={distChartData} />
+        <Doughnut options={partChartOptions1} data={partChartData} />
       </div>
       <div className="small-chart-area">
-        <Doughnut options={partChartOptions} data={partChartData} />
-        <div className="footnote">
-          <p>
-            * Includes voting activity on validator gauges & MNDE liquidity
-            mining gauges{" "}
-          </p>
-        </div>
+        <Doughnut options={partChartOptions2} data={partChartData} />
+      </div>
+      <div className="small-chart-area">
+        <Doughnut options={partChartOptions3} data={partChartData} />
+        <div className="footnote"></div>
       </div>
     </div>
   );

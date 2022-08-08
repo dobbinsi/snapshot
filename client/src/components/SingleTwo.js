@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const SingleMain = () => {
+const SingleTwo = () => {
   const [popTableData, setPopTableData] = useState([]);
 
   useEffect(() => {
@@ -16,10 +16,11 @@ const SingleMain = () => {
   }, []);
 
   return (
-    <div className="single-main">
+    <div className="single">
       <div className="title-date">
         <div className="table-title">
-          <h1>Leaderboard: Most Active Spaces</h1>
+          <h1>Leaderboard: Most Active Governors</h1>
+          <h3>vvv [Dropdown - Select Space from List Above & use as query param]</h3>
         </div>
         <div className="date-toggle">
           <p>7d &nbsp; 30d &nbsp; 90d</p>
@@ -30,9 +31,9 @@ const SingleMain = () => {
           <table className="table-main">
             <thead>
               <tr>
-                <th className="first-column">Space ID</th>
+                <th className="first-column">Wallet Address</th>
                 <th>Proposals</th>
-                <th>Unique Voters</th>
+                <th>% Passed</th>
               </tr>
             </thead>
             <tbody>
@@ -54,11 +55,8 @@ const SingleMain = () => {
           </table>
         </div>
       </div>
-      <div className="title-date">
-        <h1 className="gap">Breakdown: Most Active Spaces by Category</h1>
-      </div>
     </div>
   );
 };
 
-export default SingleMain;
+export default SingleTwo;
