@@ -103,7 +103,7 @@ const SingleBar = () => {
     <div className="single-bar">
       <div className="title-date-bar">
         <h1 className="bar-title">
-          Breakdown: Unique Voters & Average Participation Rate
+          Breakdown: &nbsp;Unique Voters & Average Participation Rate
         </h1>
         <h3 className="bar-title">vvv [Dropdown - Select Space from List Above & use as query param]</h3>
       </div>

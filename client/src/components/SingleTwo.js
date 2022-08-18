@@ -19,7 +19,7 @@ const SingleTwo = () => {
     <div className="single">
       <div className="title-date">
         <div className="table-title">
-          <h1>Leaderboard: Most Active Governors</h1>
+          <h1>Leaderboard: &nbsp;Most Active Governors</h1>
           <h3>vvv [Dropdown - Select Space from List Above & use as query param]</h3>
         </div>
         <div className="date-toggle">
