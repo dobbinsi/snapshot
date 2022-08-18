@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Chart as ChartJS, ArcElement, Title, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
@@ -124,27 +123,30 @@ const Double = () => {
 
   ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://node-api.flipsidecrypto.com/api/v2/queries/b27f6c71-4747-4a33-9923-eac54af3bf66/data/latest"
-      )
-      .then((res) => {
-        setParticipation(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "https://node-api.flipsidecrypto.com/api/v2/queries/b27f6c71-4747-4a33-9923-eac54af3bf66/data/latest"
+  //     )
+  //     .then((res) => {
+  //       setParticipation(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return (
     <div className="double">
       <div className="small-chart-area">
-        <Doughnut options={partChartOptions1} data={partChartData} />
+        <h1>YUP</h1>
+        {/* <Doughnut options={partChartOptions1} data={partChartData} /> */}
       </div>
       <div className="small-chart-area">
-        <Doughnut options={partChartOptions2} data={partChartData} />
+        <h1>YUP</h1>
+        {/* <Doughnut options={partChartOptions2} data={partChartData} /> */}
       </div>
       <div className="small-chart-area">
-        <Doughnut options={partChartOptions3} data={partChartData} />
+        <h1>YUP</h1>
+        {/* <Doughnut options={partChartOptions3} data={partChartData} /> */}
         <div className="footnote"></div>
       </div>
     </div>

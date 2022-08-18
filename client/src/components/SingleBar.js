@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -88,16 +87,16 @@ const SingleBar = () => {
     ],
   };
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://node-api.flipsidecrypto.com/api/v2/queries/8d970e8f-f638-4e2d-a7b1-3e38e16f76b3/data/latest"
-      )
-      .then((res) => {
-        setNftData(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "https://node-api.flipsidecrypto.com/api/v2/queries/8d970e8f-f638-4e2d-a7b1-3e38e16f76b3/data/latest"
+  //     )
+  //     .then((res) => {
+  //       setNftData(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return (
     <div className="single-bar">
@@ -108,7 +107,8 @@ const SingleBar = () => {
         <h3 className="bar-title">vvv [Dropdown - Select Space from List Above & use as query param]</h3>
       </div>
       <div className="chart-area">
-        <Bar options={nftChartOptions} data={nftChartData} />
+        <h1>TestTestTest</h1>
+        {/* <Bar options={nftChartOptions} data={nftChartData} /> */}
       </div>
     </div>
   );
