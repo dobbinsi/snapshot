@@ -7,6 +7,7 @@ const BigNumbers = () => {
   const [activeSpaces, setActiveSpaces] = useState([]);
   const [totalProps, setTotalProps] = useState([]);
   const [uniqueVoters, setUniqueVoters] = useState([]);
+  const [propAuthors, setPropAuthors] = useState([]);
 
   useEffect(() => {
     const flipside = new Flipside(
@@ -14,51 +15,18 @@ const BigNumbers = () => {
       "https://node-api.flipsidecrypto.com"
     );
 
-    const queryActiveSpaces = {
-      sql: "SELECT count(DISTINCT space_ID) AS Active_Spaces FROM ethereum.core.ez_snapshot",
+    const queryBigNumbers = {
+      sql: "SELECT count(DISTINCT space_ID) AS Active_Spaces, count(DISTINCT proposal_id) AS total_proposals, count(DISTINCT proposal_author) AS proposal_authors, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot",
       ttlMinutes: 10,
     };
 
-    const resultActiveSpaces = flipside.query
-      .run(queryActiveSpaces)
+    const resultBigNumbers = flipside.query
+      .run(queryBigNumbers)
       .then((records) => {
         setActiveSpaces(records.rows[0][0]);
-      });
-  }, []);
-
-  useEffect(() => {
-    const flipside = new Flipside(
-      API_KEY,
-      "https://node-api.flipsidecrypto.com"
-    );
-
-    const queryTotalProps = {
-      sql: "SELECT count(DISTINCT proposal_id) AS total_proposals FROM ethereum.core.ez_snapshot",
-      ttlMinutes: 10,
-    };
-
-    const resultTotalProps = flipside.query
-      .run(queryTotalProps)
-      .then((records) => {
-        setTotalProps(records.rows[0][0]);
-      });
-  }, []);
-
-  useEffect(() => {
-    const flipside = new Flipside(
-      API_KEY,
-      "https://node-api.flipsidecrypto.com"
-    );
-
-    const queryUniqueVoters = {
-      sql: "SELECT count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot",
-      ttlMinutes: 10,
-    };
-
-    const resultUniqueVoters = flipside.query
-      .run(queryUniqueVoters)
-      .then((records) => {
-        setUniqueVoters(records.rows[0][0]);
+        setTotalProps(records.rows[0][1]);
+        setPropAuthors(records.rows[0][2]);
+        setUniqueVoters(records.rows[0][3]);
       });
   }, []);
 
@@ -71,6 +39,10 @@ const BigNumbers = () => {
       <div className="big-numbers">
         <h1>{totalProps.toLocaleString()}</h1>
         <h2>Total Proposals</h2>
+      </div>
+      <div className="big-numbers">
+        <h1>{propAuthors.toLocaleString()}</h1>
+        <h2>Proposal Authors</h2>
       </div>
       <div className="big-numbers">
         <h1>{uniqueVoters.toLocaleString()}</h1>

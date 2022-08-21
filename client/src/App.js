@@ -1,21 +1,23 @@
 import "./App.css";
-import Footer from "./components/Footer";
 import Header from "./components/Header";
-import SingleMain from "./components/SingleMain";
+import Footer from "./components/Footer";
 import BigNumbers from "./components/BigNumbers";
-import Double from "./components/Double";
-import SingleTwo from "./components/SingleTwo";
-import SingleBar from "./components/SingleBar";
+import LeaderboardSpaces from "./components/LeaderboardSpaces";
+import LeaderboardUsers from "./components/LeaderboardUsers";
+import TrendsProp from "./components/TrendsProp";
+import TrendsVote from "./components/TrendsVote";
+import DoubleDonut from "./components/DoubleDonut";
 
 function App() {
   return (
     <div className="wrapper">
       <Header />
       <BigNumbers />
-      <SingleMain />
-      <Double />
-      <SingleBar />
-      <SingleTwo />
+      <LeaderboardSpaces />
+      <LeaderboardUsers />
+      <TrendsProp />
+      <TrendsVote />
+      <DoubleDonut />
       <Footer />
     </div>
   );

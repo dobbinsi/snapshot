@@ -144,11 +144,6 @@ const Double = () => {
         <h1>YUP</h1>
         {/* <Doughnut options={partChartOptions2} data={partChartData} /> */}
       </div>
-      <div className="small-chart-area">
-        <h1>YUP</h1>
-        {/* <Doughnut options={partChartOptions3} data={partChartData} /> */}
-        <div className="footnote"></div>
-      </div>
     </div>
   );
 };

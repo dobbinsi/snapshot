@@ -3,35 +3,48 @@ import { Flipside } from "@flipsidecrypto/sdk";
 
 const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 
-const SingleMain = () => {
+const LeaderboardSpaces = () => {
   const [sevenData, setSevenData] = useState([]);
   const [thirtyData, setThirtyData] = useState([]);
   const [ninetyData, setNinetyData] = useState([]);
+  const [yearData, setYearData] = useState([]);
   const [sevenDataProps, setSevenDataProps] = useState([]);
   const [thirtyDataProps, setThirtyDataProps] = useState([]);
   const [ninetyDataProps, setNinetyDataProps] = useState([]);
+  const [yearDataProps, setYearDataProps] = useState([]);
   const [sevenState, setSevenState] = useState(true);
   const [thirtyState, setThirtyState] = useState(false);
   const [ninetyState, setNinetyState] = useState(false);
+  const [yearState, setYearState] = useState(false);
   const [voterSort, setVoterSort] = useState(true);
   const [propSort, setPropSort] = useState(false);
+
+  const sevenHandler = () => {
+    setNinetyState(false);
+    setThirtyState(false);
+    setYearState(false);
+    setSevenState(true);
+  };
 
   const thirtyHandler = () => {
     setSevenState(false);
     setNinetyState(false);
+    setYearState(false);
     setThirtyState(true);
   };
 
   const ninetyHandler = () => {
     setSevenState(false);
     setThirtyState(false);
+    setYearState(false);
     setNinetyState(true);
   };
 
-  const sevenHandler = () => {
-    setNinetyState(false);
+  const yearHandler = () => {
+    setSevenState(false);
     setThirtyState(false);
-    setSevenState(true);
+    setNinetyState(false);
+    setYearState(true);
   };
 
   const propSortHandler = () => {
@@ -51,7 +64,7 @@ const SingleMain = () => {
     );
 
     const querySeven = {
-      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 7 GROUP BY space_id ORDER BY unique_voters DESC LIMIT 20",
+      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 7 GROUP BY space_id ORDER BY unique_voters DESC LIMIT 10",
       ttlMinutes: 10,
     };
 
@@ -67,7 +80,7 @@ const SingleMain = () => {
     );
 
     const queryThirty = {
-      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 30 GROUP BY space_id ORDER BY unique_voters DESC LIMIT 20",
+      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 30 GROUP BY space_id ORDER BY unique_voters DESC LIMIT 10",
       ttlMinutes: 10,
     };
 
@@ -83,7 +96,7 @@ const SingleMain = () => {
     );
 
     const queryNinety = {
-      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 90 GROUP BY space_id ORDER BY unique_voters DESC LIMIT 20",
+      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 90 GROUP BY space_id ORDER BY unique_voters DESC LIMIT 10",
       ttlMinutes: 10,
     };
 
@@ -98,8 +111,24 @@ const SingleMain = () => {
       "https://node-api.flipsidecrypto.com"
     );
 
+    const queryYear = {
+      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 365 GROUP BY space_id ORDER BY unique_voters DESC LIMIT 10",
+      ttlMinutes: 10,
+    };
+
+    const resultYear = flipside.query.run(queryYear).then((records) => {
+      setYearData(records.rows);
+    });
+  }, []);
+
+  useEffect(() => {
+    const flipside = new Flipside(
+      API_KEY,
+      "https://node-api.flipsidecrypto.com"
+    );
+
     const querySevenProps = {
-      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 7 GROUP BY space_id ORDER BY proposals DESC LIMIT 20",
+      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 7 GROUP BY space_id ORDER BY proposals DESC LIMIT 10",
       ttlMinutes: 10,
     };
 
@@ -117,7 +146,7 @@ const SingleMain = () => {
     );
 
     const queryThirtyProps = {
-      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 30 GROUP BY space_id ORDER BY proposals DESC LIMIT 20",
+      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 30 GROUP BY space_id ORDER BY proposals DESC LIMIT 10",
       ttlMinutes: 10,
     };
 
@@ -135,7 +164,7 @@ const SingleMain = () => {
     );
 
     const queryNinetyProps = {
-      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 90 GROUP BY space_id ORDER BY proposals DESC LIMIT 20",
+      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 90 GROUP BY space_id ORDER BY proposals DESC LIMIT 10",
       ttlMinutes: 10,
     };
 
@@ -143,6 +172,24 @@ const SingleMain = () => {
       .run(queryNinetyProps)
       .then((records) => {
         setNinetyDataProps(records.rows);
+      });
+  }, []);
+
+  useEffect(() => {
+    const flipside = new Flipside(
+      API_KEY,
+      "https://node-api.flipsidecrypto.com"
+    );
+
+    const queryYearProps = {
+      sql: "SELECT space_id, count(DISTINCT proposal_id) AS proposals, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 365 GROUP BY space_id ORDER BY proposals DESC LIMIT 10",
+      ttlMinutes: 10,
+    };
+
+    const resultYearProps = flipside.query
+      .run(queryYearProps)
+      .then((records) => {
+        setYearDataProps(records.rows);
       });
   }, []);
 
@@ -162,6 +209,9 @@ const SingleMain = () => {
           <button className="ninetyday" onClick={ninetyHandler}>
             90d
           </button>
+          <button className="yearday" onClick={yearHandler}>
+            365d
+          </button>
         </div>
       </div>
       {voterSort ? (
@@ -171,8 +221,12 @@ const SingleMain = () => {
               <thead>
                 <tr>
                   <th className="first-column">Space ID</th>
-                  <th className="sorter" onClick={propSortHandler}>Proposals</th>
-                  <th className="sorter" onClick={voterSortHandler}>Unique Voters</th>
+                  <th className="sorter" onClick={propSortHandler}>
+                    Proposals
+                  </th>
+                  <th className="sorter" onClick={voterSortHandler}>
+                    Unique Voters
+                  </th>
                 </tr>
               </thead>
               {sevenState && (
@@ -180,7 +234,7 @@ const SingleMain = () => {
                   {sevenData.map((space, index) => (
                     <tr>
                       <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1]}</td>
+                      <td className="validator-voters">{space[1].toLocaleString()}</td>
                       <td className="validator-shares">
                         {space[2].toLocaleString()}
                       </td>
@@ -193,7 +247,7 @@ const SingleMain = () => {
                   {thirtyData.map((space, index) => (
                     <tr>
                       <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1]}</td>
+                      <td className="validator-voters">{space[1].toLocaleString()}</td>
                       <td className="validator-shares">
                         {space[2].toLocaleString()}
                       </td>
@@ -206,7 +260,20 @@ const SingleMain = () => {
                   {ninetyData.map((space, index) => (
                     <tr>
                       <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1]}</td>
+                      <td className="validator-voters">{space[1].toLocaleString()}</td>
+                      <td className="validator-shares">
+                        {space[2].toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
+              {yearState && (
+                <tbody>
+                  {yearData.map((space, index) => (
+                    <tr>
+                      <td>{space[0]}</td>
+                      <td className="validator-voters">{space[1].toLocaleString()}</td>
                       <td className="validator-shares">
                         {space[2].toLocaleString()}
                       </td>
@@ -224,8 +291,12 @@ const SingleMain = () => {
               <thead>
                 <tr>
                   <th className="first-column">Space ID</th>
-                  <th className="sorter" onClick={propSortHandler}>Proposals</th>
-                  <th className="sorter" onClick={voterSortHandler}>Unique Voters</th>
+                  <th className="sorter" onClick={propSortHandler}>
+                    Proposals
+                  </th>
+                  <th className="sorter" onClick={voterSortHandler}>
+                    Unique Voters
+                  </th>
                 </tr>
               </thead>
               {sevenState && (
@@ -233,7 +304,7 @@ const SingleMain = () => {
                   {sevenDataProps.map((space, index) => (
                     <tr>
                       <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1]}</td>
+                      <td className="validator-voters">{space[1].toLocaleString()}</td>
                       <td className="validator-shares">
                         {space[2].toLocaleString()}
                       </td>
@@ -246,7 +317,7 @@ const SingleMain = () => {
                   {thirtyDataProps.map((space, index) => (
                     <tr>
                       <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1]}</td>
+                      <td className="validator-voters">{space[1].toLocaleString()}</td>
                       <td className="validator-shares">
                         {space[2].toLocaleString()}
                       </td>
@@ -259,7 +330,20 @@ const SingleMain = () => {
                   {ninetyDataProps.map((space, index) => (
                     <tr>
                       <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1]}</td>
+                      <td className="validator-voters">{space[1].toLocaleString()}</td>
+                      <td className="validator-shares">
+                        {space[2].toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
+              {yearState && (
+                <tbody>
+                  {yearDataProps.map((space, index) => (
+                    <tr>
+                      <td>{space[0]}</td>
+                      <td className="validator-voters">{space[1].toLocaleString()}</td>
                       <td className="validator-shares">
                         {space[2].toLocaleString()}
                       </td>
@@ -271,11 +355,8 @@ const SingleMain = () => {
           </div>
         </div>
       )}
-      <div className="title-date">
-        <h1 className="gap">Breakdown: &nbsp;Most Active Spaces by Category</h1>
-      </div>
     </div>
   );
 };
 
-export default SingleMain;
+export default LeaderboardSpaces;
