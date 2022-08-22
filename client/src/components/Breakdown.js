@@ -38,6 +38,14 @@ const getQuery3 = (space) => {
   return query;
 };
 
+const getQuery4 = (space) => {
+  const query = {
+    sql: `SELECT voter, min(vote_timestamp) as first_vote, count(DISTINCT id) as total_votes from ethereum.core.ez_snapshot where space_id = '${space}' group by 1 order by 3 desc limit 10`,
+    ttlMinutes: 10,
+  };
+  return query;
+};
+
 const Breakdown = () => {
   const [activeSpaces, setActiveSpaces] = useState([]);
   const [totalProps, setTotalProps] = useState([]);
@@ -57,6 +65,7 @@ const Breakdown = () => {
   const voteChartAmounts = votesMonthly.map((item) => {
     return item[1];
   });
+  const [topTen, setTopTen] = useState([]);
 
   const [search, setSearch] = useState("cake.eth");
 
@@ -226,6 +235,18 @@ const Breakdown = () => {
     });
   };
 
+  const runSDKApi4 = async (space) => {
+    const flipside = new Flipside(
+      API_KEY,
+      "https://node-api.flipsidecrypto.com"
+    );
+    const query = getQuery4(space);
+    const result = flipside.query.run(query).then((records) => {
+      console.log(records.rows);
+      setTopTen(records.rows);
+    });
+  };
+
   return (
     <div className="breakdown">
       <div className="title-date">
@@ -266,12 +287,34 @@ const Breakdown = () => {
           <h2>Average Turnout</h2>
         </div>
       </div>
-      <div className="double">
-        <div className="small-chart-area">
-          <Bar options={propChartOptions} data={propChartData} />
-        </div>
-        <div className="small-chart-area">
-          <Bar options={voteChartOptions} data={voteChartData} />
+      <div className="chart-area">
+        <Bar options={propChartOptions} data={propChartData} />
+      </div>
+      <div className="chart-area">
+        <Bar options={voteChartOptions} data={voteChartData} />
+      </div>
+      <div className="table-wrapper">
+        <div className="table-scroll">
+          <table className="table-main">
+            <thead>
+              <tr>
+                <th className="first-column">Wallet Address</th>
+                <th>First Vote</th>
+                <th>Total Votes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topTen.map((voter, index) => (
+                <tr>
+                  <td>{voter[0]}</td>
+                  <td className="validator-voters">{voter[1].slice(0, 10)}</td>
+                  <td className="validator-shares">
+                    {voter[2].toLocaleString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
