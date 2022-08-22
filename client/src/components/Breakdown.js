@@ -32,7 +32,32 @@ const getQuery2 = (space) => {
 
 const getQuery3 = (space) => {
   const query = {
-    sql: `with base as (select voter, min(proposal_start_time) as first_tx from ethereum.core.ez_snapshot where space_id = '${space}' group by 1), base2 as (select voter, date_trunc('month', first_tx) as month, 1 as counts from base) select month, sum(counts) as numbering from base2 group by 1`,
+    sql: `with base as (
+        select
+          space_id,
+          voter,
+          min(proposal_start_time) as first_tx
+          from ethereum.core.ez_snapshot
+            where space_id = '${space}'
+          group by 
+              space_id, 
+              voter
+      ),
+      base2 as (
+        select 
+          space_id,
+          voter,
+          date_trunc('month', first_tx) as month,
+          1 as counts
+      from base
+      )
+      select 
+        month,
+        sum(counts) as monthly_new_voters
+      from base2
+      group by  
+          month
+          order by month asc`,
     ttlMinutes: 10,
   };
   return query;
@@ -46,6 +71,27 @@ const getQuery4 = (space) => {
   return query;
 };
 
+const getQuery5 = (space) => {
+  const query = {
+    sql: `WITH prop_turnout AS (
+        SELECT 
+            space_id, 
+            proposal_id, 
+            count(DISTINCT voter) as turnout
+        FROM ethereum.core.ez_snapshot
+        WHERE space_id = '${space}'
+        GROUP BY space_id, proposal_id
+        )
+        SELECT 
+            space_id, 
+            avg(turnout) as avg_turnout
+        FROM prop_turnout
+        GROUP BY space_id`,
+    ttlMinutes: 10,
+  };
+  return query;
+};
+
 const Breakdown = () => {
   const [activeSpaces, setActiveSpaces] = useState([]);
   const [totalProps, setTotalProps] = useState([]);
@@ -54,7 +100,7 @@ const Breakdown = () => {
   const [propsMonthly, setPropsMonthly] = useState([]);
   const [votesMonthly, setVotesMonthly] = useState([]);
   const propChartDates = propsMonthly.map((item) => {
-    return item[0].slice(0, 7);
+    return item[0].slice(0, 12);
   });
   const propChartAmounts = propsMonthly.map((item) => {
     return item[1];
@@ -66,14 +112,17 @@ const Breakdown = () => {
     return item[1];
   });
   const [topTen, setTopTen] = useState([]);
+  const [avgTurnout, setAvgTurnout] = useState([]);
 
-  const [search, setSearch] = useState("cake.eth");
+  const [search, setSearch] = useState("space id");
 
   const handleChange = (e) => {
     setSearch(e.target.value);
     runSDKApi1(e.target.value);
     runSDKApi2(e.target.value);
     runSDKApi3(e.target.value);
+    runSDKApi4(e.target.value);
+    runSDKApi5(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -120,7 +169,7 @@ const Breakdown = () => {
         position: "",
       },
       title: {
-        display: true,
+        display: false,
         text: "Top 10 Proposals by Number of Voters",
         font: {
           size: 18,
@@ -175,7 +224,7 @@ const Breakdown = () => {
         position: "",
       },
       title: {
-        display: true,
+        display: false,
         text: "New Voters by Month",
         font: {
           size: 18,
@@ -231,6 +280,7 @@ const Breakdown = () => {
     );
     const query = getQuery3(space);
     const result = flipside.query.run(query).then((records) => {
+      console.log(records.rows);
       setVotesMonthly(records.rows);
     });
   };
@@ -242,30 +292,39 @@ const Breakdown = () => {
     );
     const query = getQuery4(space);
     const result = flipside.query.run(query).then((records) => {
-      console.log(records.rows);
       setTopTen(records.rows);
+    });
+  };
+
+  const runSDKApi5 = async (space) => {
+    const flipside = new Flipside(
+      API_KEY,
+      "https://node-api.flipsidecrypto.com"
+    );
+    const query = getQuery5(space);
+    const result = flipside.query.run(query).then((records) => {
+      setAvgTurnout(records.rows[0][1]);
     });
   };
 
   return (
     <div className="breakdown">
       <div className="title-date">
-        <h1>Breakdown: &nbsp;Individual Spaces</h1>
         <div className="breakdown-title">
-          <h1>{search}</h1>
+          <h1>Breakdown: &nbsp;{search}</h1>
           <form className="search-form" onSubmit={handleSubmit}>
             <div className="search-form">
               <input
                 className="space-input"
                 type="text"
-                placeholder="Search Spaces by Name..."
+                placeholder="Search Spaces by ID... ex: cake.eth"
                 onChange={handleChange}
               />
             </div>
           </form>
         </div>
       </div>
-      <div className="triple">
+      <div className="triple-indi">
         <div className="big-numbers">
           <h1>{totalProps.toLocaleString()}</h1>
           <h2>Total Proposals</h2>
@@ -280,18 +339,29 @@ const Breakdown = () => {
         </div>
         <div className="big-numbers">
           <h1>
-            {(uniqueVoters / totalProps).toLocaleString(undefined, {
+            {avgTurnout.toLocaleString(undefined, {
               maximumFractionDigits: 0,
             })}
           </h1>
           <h2>Average Turnout</h2>
         </div>
       </div>
-      <div className="chart-area">
-        <Bar options={propChartOptions} data={propChartData} />
+      <div className="chart-area-breakdown">
+        <h2>Top 10 Proposals by Number of Voters</h2>
+        <Bar
+          className="top-props"
+          options={propChartOptions}
+          data={propChartData}
+        />
       </div>
-      <div className="chart-area">
+      <div className="chart-area-breakdown">
+        <h2>New Voters by Month</h2>
         <Bar options={voteChartOptions} data={voteChartData} />
+      </div>
+      <div className="title-date">
+        <div className="table-title">
+          <h2>Most Active Voters</h2>
+        </div>
       </div>
       <div className="table-wrapper">
         <div className="table-scroll">

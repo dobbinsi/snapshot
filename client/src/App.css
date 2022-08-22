@@ -89,6 +89,23 @@ a:visited {
   text-align: center;
 }
 
+.chart-area-breakdown {
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.chart-area-breakdown h2 {
+  text-align: start;
+  margin-bottom: 20px;
+}
+
+.top-props {
+  margin-bottom: 50px;
+}
+
 .breakdown {
   /* width: 90%; */
   margin: auto;
@@ -244,6 +261,15 @@ th.first-column {
   margin-bottom: 20px;
 }
 
+.triple-indi {
+  margin: auto;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
 .big-numbers {
   width: 30%;
   padding: 30px;
@@ -275,7 +301,22 @@ th.first-column {
   cursor: pointer;
 }
 
+.breakdown {
+  margin-top: 50px;
+}
+
 .breakdown-title {
   display: flex;
   justify-content: space-between;
+}
+
+.space-input {
+  padding: 8px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow:0 0 5px 1px #e5e7eb;
+}
+
+.table-title h2 {
+  margin-bottom: 20px;
 }

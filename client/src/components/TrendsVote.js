@@ -160,7 +160,7 @@ const TrendsVote = () => {
     <div className="single-main">
       <div className="title-date">
         <div className="table-title">
-          <h1>Trends: &nbsp;Unique Votes</h1>
+          <h1>Trends: &nbsp;Unique Voters</h1>
         </div>
         <div className="date-toggle">
           <button className="weekly" onClick={weekHandler}>

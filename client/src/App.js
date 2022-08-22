@@ -6,7 +6,6 @@ import LeaderboardSpaces from "./components/LeaderboardSpaces";
 import LeaderboardUsers from "./components/LeaderboardUsers";
 import TrendsProp from "./components/TrendsProp";
 import TrendsVote from "./components/TrendsVote";
-import DoubleDonut from "./components/DoubleDonut";
 import Breakdown from "./components/Breakdown";
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
       <LeaderboardUsers />
       <TrendsProp />
       <TrendsVote />
-      <DoubleDonut />
       <Breakdown />
       <Footer />
     </div>
