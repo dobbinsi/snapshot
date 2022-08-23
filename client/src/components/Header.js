@@ -1,4 +1,5 @@
 import snapjawn from "../logos/snapshot.svg";
+import { motion } from "framer-motion";
 
 const Header = () => {
   return (
@@ -6,7 +7,13 @@ const Header = () => {
       <div>
         <a href="https://snapshot.org/#/">
           {" "}
-          <img src={snapjawn} className="snapshot-logo" alt="snapshot" />{" "}
+          <motion.img
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            src={snapjawn}
+            className="snapshot-logo"
+            alt="snapshot"
+          />{" "}
         </a>
       </div>
       <div className="txt-main">

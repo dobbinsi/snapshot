@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 
@@ -93,7 +94,6 @@ const getQuery5 = (space) => {
 };
 
 const Breakdown = () => {
-  const [activeSpaces, setActiveSpaces] = useState([]);
   const [totalProps, setTotalProps] = useState([]);
   const [uniqueVoters, setUniqueVoters] = useState([]);
   const [propAuthors, setPropAuthors] = useState([]);
@@ -114,10 +114,12 @@ const Breakdown = () => {
   const [topTen, setTopTen] = useState([]);
   const [avgTurnout, setAvgTurnout] = useState([]);
 
-  const [search, setSearch] = useState("space id");
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
+    setLoading(true);
     runSDKApi1(e.target.value);
     runSDKApi2(e.target.value);
     runSDKApi3(e.target.value);
@@ -255,10 +257,10 @@ const Breakdown = () => {
     );
     const query = getQuery1(space);
     const result = flipside.query.run(query).then((records) => {
-      setActiveSpaces(records.rows[0][0]);
       setTotalProps(records.rows[0][1]);
       setPropAuthors(records.rows[0][2]);
       setUniqueVoters(records.rows[0][3]);
+      setLoading(false);
     });
   };
 
@@ -311,7 +313,7 @@ const Breakdown = () => {
     <div className="breakdown">
       <div className="title-date">
         <div className="breakdown-title">
-          <h1>Breakdown: &nbsp;{search}</h1>
+          <h1>Breakdown: &nbsp;Individual Spaces</h1>
           <form className="search-form" onSubmit={handleSubmit}>
             <div className="search-form">
               <input
@@ -324,69 +326,89 @@ const Breakdown = () => {
           </form>
         </div>
       </div>
-      <div className="triple-indi">
-        <div className="big-numbers">
-          <h1>{totalProps.toLocaleString()}</h1>
-          <h2>Total Proposals</h2>
+      {loading ? (
+        <div className="loader">
+          <ScaleLoader height={50} color={"#ffab33"} className="loader" />
         </div>
-        <div className="big-numbers">
-          <h1>{propAuthors.toLocaleString()}</h1>
-          <h2>Proposal Authors</h2>
-        </div>
-        <div className="big-numbers">
-          <h1>{uniqueVoters.toLocaleString()}</h1>
-          <h2>Unique Voters</h2>
-        </div>
-        <div className="big-numbers">
-          <h1>
-            {avgTurnout.toLocaleString(undefined, {
-              maximumFractionDigits: 0,
-            })}
-          </h1>
-          <h2>Average Turnout</h2>
-        </div>
-      </div>
-      <div className="chart-area-breakdown">
-        <h2>Top 10 Proposals by Number of Voters</h2>
-        <Bar
-          className="top-props"
-          options={propChartOptions}
-          data={propChartData}
-        />
-      </div>
-      <div className="chart-area-breakdown">
-        <h2>New Voters by Month</h2>
-        <Bar options={voteChartOptions} data={voteChartData} />
-      </div>
-      <div className="title-date">
-        <div className="table-title">
-          <h2>Most Active Voters</h2>
-        </div>
-      </div>
-      <div className="table-wrapper">
-        <div className="table-scroll">
-          <table className="table-main">
-            <thead>
-              <tr>
-                <th className="first-column">Wallet Address</th>
-                <th>First Vote</th>
-                <th>Total Votes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {topTen.map((voter, index) => (
-                <tr>
-                  <td>{voter[0]}</td>
-                  <td className="validator-voters">{voter[1].slice(0, 10)}</td>
-                  <td className="validator-shares">
-                    {voter[2].toLocaleString()}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      ) : (
+        <>
+          {search ? (
+            <>
+              <div className="triple-indi">
+                <div className="big-numbers">
+                  <h1>{totalProps.toLocaleString()}</h1>
+                  <h2>Total Proposals</h2>
+                </div>
+                <div className="big-numbers">
+                  <h1>{propAuthors.toLocaleString()}</h1>
+                  <h2>Proposal Authors</h2>
+                </div>
+                <div className="big-numbers">
+                  <h1>{uniqueVoters.toLocaleString()}</h1>
+                  <h2>Unique Voters</h2>
+                </div>
+                <div className="big-numbers">
+                  <h1>
+                    {avgTurnout.toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })}
+                  </h1>
+                  <h2>Average Turnout</h2>
+                </div>
+              </div>
+              <div className="chart-area-breakdown">
+                <h2>Top 10 Proposals by Number of Voters</h2>
+                <Bar
+                  className="top-props"
+                  options={propChartOptions}
+                  data={propChartData}
+                />
+              </div>
+              <div className="chart-area-breakdown">
+                <h2>New Voters by Month</h2>
+                <Bar options={voteChartOptions} data={voteChartData} />
+              </div>
+              <div className="title-date">
+                <div className="table-title">
+                  <h2>Most Active Voters</h2>
+                </div>
+              </div>
+              <div className="table-wrapper">
+                <div className="table-scroll">
+                  <table className="table-main">
+                    <thead>
+                      <tr>
+                        <th className="first-column">Wallet Address</th>
+                        <th>First Vote</th>
+                        <th>Total Votes</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {topTen.map((voter, index) => (
+                        <tr>
+                          <td>{voter[0]}</td>
+                          <td className="validator-voters">
+                            {voter[1].slice(0, 10)}
+                          </td>
+                          <td className="validator-shares">
+                            {voter[2].toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="prompt">
+              <h2 className="theme-switch">
+                * search for space to display stats *
+              </h2>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

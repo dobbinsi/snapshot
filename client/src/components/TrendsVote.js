@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 
@@ -19,6 +20,7 @@ const TrendsVote = () => {
   const [votesWeekly, setVotesWeekly] = useState([]);
   const [weekState, setWeekState] = useState(false);
   const [monthState, setMonthState] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const voteChartDates = votesMonthly.map((item) => {
     return item[0].slice(0, 7);
@@ -135,6 +137,7 @@ const TrendsVote = () => {
       .run(queryVotesMonthly)
       .then((records) => {
         setVotesMonthly(records.rows);
+        setLoading(false);
       });
   }, []);
 
@@ -158,28 +161,36 @@ const TrendsVote = () => {
 
   return (
     <div className="single-main">
-      <div className="title-date">
-        <div className="table-title">
-          <h1>Trends: &nbsp;Unique Voters</h1>
+      {loading ? (
+        <div className="loader">
+          <ScaleLoader height={50} color={"#ffab33"} className="loader" />
         </div>
-        <div className="date-toggle">
-          <button className="weekly" onClick={weekHandler}>
-            Weekly
-          </button>
-          <button className="monthly" onClick={monthHandler}>
-            Monthly
-          </button>
-        </div>
-      </div>
-      {weekState && (
-        <div className="chart-area">
-          <Bar options={voteChartOptions} data={voteChartData2} />
-        </div>
-      )}
-      {monthState && (
-        <div className="chart-area">
-          <Bar options={voteChartOptions} data={voteChartData} />
-        </div>
+      ) : (
+        <>
+          <div className="title-date">
+            <div className="table-title">
+              <h1>Trends: &nbsp;Unique Voters</h1>
+            </div>
+            <div className="date-toggle">
+              <button className="weekly" onClick={weekHandler}>
+                Weekly
+              </button>
+              <button className="monthly" onClick={monthHandler}>
+                Monthly
+              </button>
+            </div>
+          </div>
+          {weekState && (
+            <div className="chart-area">
+              <Bar options={voteChartOptions} data={voteChartData2} />
+            </div>
+          )}
+          {monthState && (
+            <div className="chart-area">
+              <Bar options={voteChartOptions} data={voteChartData} />
+            </div>
+          )}
+        </>
       )}
     </div>
   );

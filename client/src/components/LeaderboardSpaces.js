@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Flipside } from "@flipsidecrypto/sdk";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 
@@ -18,6 +19,7 @@ const LeaderboardSpaces = () => {
   const [yearState, setYearState] = useState(false);
   const [voterSort, setVoterSort] = useState(true);
   const [propSort, setPropSort] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const sevenHandler = () => {
     setNinetyState(false);
@@ -70,6 +72,7 @@ const LeaderboardSpaces = () => {
 
     const resultSeven = flipside.query.run(querySeven).then((records) => {
       setSevenData(records.rows);
+      setLoading(false);
     });
   }, []);
 
@@ -195,165 +198,189 @@ const LeaderboardSpaces = () => {
 
   return (
     <div className="single-main">
-      <div className="title-date">
-        <div className="table-title">
-          <h1>Leaderboard: &nbsp;Most Active Spaces</h1>
-        </div>
-        <div className="date-toggle">
-          <button className="sevenday" onClick={sevenHandler}>
-            7d
-          </button>
-          <button className="thirtyday" onClick={thirtyHandler}>
-            30d
-          </button>
-          <button className="ninetyday" onClick={ninetyHandler}>
-            90d
-          </button>
-          <button className="yearday" onClick={yearHandler}>
-            365d
-          </button>
-        </div>
-      </div>
-      {voterSort ? (
-        <div className="table-wrapper">
-          <div className="table-scroll">
-            <table className="table-main">
-              <thead>
-                <tr>
-                  <th className="first-column">Space ID</th>
-                  <th className="sorter" onClick={propSortHandler}>
-                    Proposals
-                  </th>
-                  <th className="sorter" onClick={voterSortHandler}>
-                    Unique Voters
-                  </th>
-                </tr>
-              </thead>
-              {sevenState && (
-                <tbody>
-                  {sevenData.map((space, index) => (
-                    <tr>
-                      <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1].toLocaleString()}</td>
-                      <td className="validator-shares">
-                        {space[2].toLocaleString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              )}
-              {thirtyState && (
-                <tbody>
-                  {thirtyData.map((space, index) => (
-                    <tr>
-                      <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1].toLocaleString()}</td>
-                      <td className="validator-shares">
-                        {space[2].toLocaleString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              )}
-              {ninetyState && (
-                <tbody>
-                  {ninetyData.map((space, index) => (
-                    <tr>
-                      <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1].toLocaleString()}</td>
-                      <td className="validator-shares">
-                        {space[2].toLocaleString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              )}
-              {yearState && (
-                <tbody>
-                  {yearData.map((space, index) => (
-                    <tr>
-                      <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1].toLocaleString()}</td>
-                      <td className="validator-shares">
-                        {space[2].toLocaleString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              )}
-            </table>
-          </div>
+      {loading ? (
+        <div className="loader">
+          <ScaleLoader height={50} color={"#ffab33"} className="loader" />
         </div>
       ) : (
-        <div className="table-wrapper">
-          <div className="table-scroll">
-            <table className="table-main">
-              <thead>
-                <tr>
-                  <th className="first-column">Space ID</th>
-                  <th className="sorter" onClick={propSortHandler}>
-                    Proposals
-                  </th>
-                  <th className="sorter" onClick={voterSortHandler}>
-                    Unique Voters
-                  </th>
-                </tr>
-              </thead>
-              {sevenState && (
-                <tbody>
-                  {sevenDataProps.map((space, index) => (
-                    <tr>
-                      <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1].toLocaleString()}</td>
-                      <td className="validator-shares">
-                        {space[2].toLocaleString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              )}
-              {thirtyState && (
-                <tbody>
-                  {thirtyDataProps.map((space, index) => (
-                    <tr>
-                      <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1].toLocaleString()}</td>
-                      <td className="validator-shares">
-                        {space[2].toLocaleString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              )}
-              {ninetyState && (
-                <tbody>
-                  {ninetyDataProps.map((space, index) => (
-                    <tr>
-                      <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1].toLocaleString()}</td>
-                      <td className="validator-shares">
-                        {space[2].toLocaleString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              )}
-              {yearState && (
-                <tbody>
-                  {yearDataProps.map((space, index) => (
-                    <tr>
-                      <td>{space[0]}</td>
-                      <td className="validator-voters">{space[1].toLocaleString()}</td>
-                      <td className="validator-shares">
-                        {space[2].toLocaleString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              )}
-            </table>
+        <>
+          <div className="title-date">
+            <div className="table-title">
+              <h1>Leaderboard: &nbsp;Most Active Spaces</h1>
+            </div>
+            <div className="date-toggle">
+              <button className="sevenday" onClick={sevenHandler}>
+                7d
+              </button>
+              <button className="thirtyday" onClick={thirtyHandler}>
+                30d
+              </button>
+              <button className="ninetyday" onClick={ninetyHandler}>
+                90d
+              </button>
+              <button className="yearday" onClick={yearHandler}>
+                365d
+              </button>
+            </div>
           </div>
-        </div>
+          {voterSort ? (
+            <div className="table-wrapper">
+              <div className="table-scroll">
+                <table className="table-main">
+                  <thead>
+                    <tr>
+                      <th className="first-column">Space ID</th>
+                      <th className="sorter" onClick={propSortHandler}>
+                        Proposals
+                      </th>
+                      <th className="sorter" onClick={voterSortHandler}>
+                        Unique Voters
+                      </th>
+                    </tr>
+                  </thead>
+                  {sevenState && (
+                    <tbody>
+                      {sevenData.map((space, index) => (
+                        <tr>
+                          <td>{space[0]}</td>
+                          <td className="validator-voters">
+                            {space[1].toLocaleString()}
+                          </td>
+                          <td className="validator-shares">
+                            {space[2].toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  )}
+                  {thirtyState && (
+                    <tbody>
+                      {thirtyData.map((space, index) => (
+                        <tr>
+                          <td>{space[0]}</td>
+                          <td className="validator-voters">
+                            {space[1].toLocaleString()}
+                          </td>
+                          <td className="validator-shares">
+                            {space[2].toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  )}
+                  {ninetyState && (
+                    <tbody>
+                      {ninetyData.map((space, index) => (
+                        <tr>
+                          <td>{space[0]}</td>
+                          <td className="validator-voters">
+                            {space[1].toLocaleString()}
+                          </td>
+                          <td className="validator-shares">
+                            {space[2].toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  )}
+                  {yearState && (
+                    <tbody>
+                      {yearData.map((space, index) => (
+                        <tr>
+                          <td>{space[0]}</td>
+                          <td className="validator-voters">
+                            {space[1].toLocaleString()}
+                          </td>
+                          <td className="validator-shares">
+                            {space[2].toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  )}
+                </table>
+              </div>
+            </div>
+          ) : (
+            <div className="table-wrapper">
+              <div className="table-scroll">
+                <table className="table-main">
+                  <thead>
+                    <tr>
+                      <th className="first-column">Space ID</th>
+                      <th className="sorter" onClick={propSortHandler}>
+                        Proposals
+                      </th>
+                      <th className="sorter" onClick={voterSortHandler}>
+                        Unique Voters
+                      </th>
+                    </tr>
+                  </thead>
+                  {sevenState && (
+                    <tbody>
+                      {sevenDataProps.map((space, index) => (
+                        <tr>
+                          <td>{space[0]}</td>
+                          <td className="validator-voters">
+                            {space[1].toLocaleString()}
+                          </td>
+                          <td className="validator-shares">
+                            {space[2].toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  )}
+                  {thirtyState && (
+                    <tbody>
+                      {thirtyDataProps.map((space, index) => (
+                        <tr>
+                          <td>{space[0]}</td>
+                          <td className="validator-voters">
+                            {space[1].toLocaleString()}
+                          </td>
+                          <td className="validator-shares">
+                            {space[2].toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  )}
+                  {ninetyState && (
+                    <tbody>
+                      {ninetyDataProps.map((space, index) => (
+                        <tr>
+                          <td>{space[0]}</td>
+                          <td className="validator-voters">
+                            {space[1].toLocaleString()}
+                          </td>
+                          <td className="validator-shares">
+                            {space[2].toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  )}
+                  {yearState && (
+                    <tbody>
+                      {yearDataProps.map((space, index) => (
+                        <tr>
+                          <td>{space[0]}</td>
+                          <td className="validator-voters">
+                            {space[1].toLocaleString()}
+                          </td>
+                          <td className="validator-shares">
+                            {space[2].toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  )}
+                </table>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

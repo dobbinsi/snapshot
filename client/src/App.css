@@ -30,11 +30,6 @@ body {
 .snapshot-logo {
   width: 50px;
   height: 50px;
-  transition: transform 0.7s ease-in-out;
-}
-
-.snapshot-logo:hover {
-  transform: rotate(360deg);
 }
 
 .footer {
@@ -314,9 +309,43 @@ th.first-column {
   padding: 8px;
   border-radius: 10px;
   width: 300px;
-  box-shadow:0 0 5px 1px #e5e7eb;
+  box-shadow: 0 0 5px 1px #e5e7eb;
+}
+
+.space-input:focus {
+  padding: 8px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 0 5px 1px #e5e7eb;
+  outline: none;
 }
 
 .table-title h2 {
   margin-bottom: 20px;
 }
+
+.prompt {
+  margin: auto;
+  display: flex;
+  margin-top: 50px;
+  justify-content: center;
+  align-items: center;
+  color: #8b949e;
+  min-height: 400px;
+}
+
+.theme-switch {
+  transition: transform 0.5s linear;
+}
+
+.theme-switch:hover {
+  transform: scale(1.1);
+}
+
+.loader {
+  position: fixed;
+  left: 50%;
+  margin-top: 250px;
+  margin-bottom: 250px;
+}
+
