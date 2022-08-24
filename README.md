@@ -1,16 +1,4 @@
-# snapshot
-initialize repo 
-
-background
-#211e24
-
-light gray
-#8b949e
-
-off-white
-#e5e7eb
-
-yellow
-#ffab33
-
-
+<h2>Snapshot Analytics</h2>
+<p>This dashboard was built to track governance activity across Snapshot spaces with charts to monitor trends in usage and leaderboards to identify the most active communities & contributors.</p>
+<p>Built by Jess & d0bby</p>
+<p>Powered by Flipside Crypto's ShroomDK</p>

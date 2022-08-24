@@ -146,7 +146,7 @@ body {
   overflow: hidden;
   margin-bottom: 20px;
   color: #8b949e;
-  table-layout: fixed;
+  /* table-layout: fixed; */
 }
 
 .table-main thead tr {
@@ -197,31 +197,95 @@ th.first-column {
 }
 
 .table-scroll {
-  /* max-height: 700px;
-  overflow: auto; */
+  max-height: 700px;
+  overflow: auto;
   margin-bottom: 10px;
 }
 
-@media (max-width: 768px) {
-  .header-bigtxt {
+@media (max-width: 590px) {
+  .logo h1 {
     display: none;
   }
-  .double {
-    margin: auto;
-    display: block;
-    background-color: transparent;
-    margin-bottom: 20px;
+  .footer-bigtxt {
+    display: none;
   }
-  .small-chart-area {
-    min-width: 90%;
+  .breakdown-title h1 {
+    display: none;
+  }
+  .breakdown form {
     margin: auto;
-    padding: 20px;
+  }
+  .big-numbers {
+    margin: auto;
   }
 }
 
-@media (max-width: 400px) {
-  .footer-bigtxt {
-    display: none;
+/* @media (max-width: 775px) {
+  .triple {
+    margin: auto;
+    width: 90%;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .triple-indi {
+    margin: auto;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+
+  .big-numbers {
+    width: 30%;
+    margin: auto;
+    display: inline-block;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .big-numbers h1 {
+    color: #ffab33;
+    margin-bottom: 10px;
+    font-size: xxx-large;
+  }
+} */
+
+@media (max-width: 1130px) {
+  .triple {
+    margin: auto;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .triple-indi {
+    margin: auto;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+
+  .big-numbers {
+    width: 30%;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .big-numbers h1 {
+    color: #ffab33;
+    margin-bottom: 10px;
+    font-size: xxx-large;
   }
 }
 
@@ -280,7 +344,7 @@ th.first-column {
 }
 
 .big-numbers {
-  width: 30%;
+  /* width: 30%; */
   padding: 30px;
   text-align: center;
   margin-bottom: 40px;
@@ -329,7 +393,7 @@ th.first-column {
 .space-input:focus {
   padding: 8px;
   border-radius: 10px;
-  width: 300px;
+  width: 200px;
   box-shadow: 0 0 5px 1px #e5e7eb;
   outline: none;
 }
