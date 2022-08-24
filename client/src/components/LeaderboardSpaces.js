@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Flipside } from "@flipsidecrypto/sdk";
-import ScaleLoader from "react-spinners/ScaleLoader";
 
 const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 
@@ -20,12 +19,20 @@ const LeaderboardSpaces = () => {
   const [voterSort, setVoterSort] = useState(true);
   const [propSort, setPropSort] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [active1, setActive1] = useState(true);
+  const [active2, setActive2] = useState(false);
+  const [active3, setActive3] = useState(false);
+  const [active4, setActive4] = useState(false);
 
   const sevenHandler = () => {
     setNinetyState(false);
     setThirtyState(false);
     setYearState(false);
     setSevenState(true);
+    setActive1(true);
+    setActive2(false);
+    setActive3(false);
+    setActive4(false);
   };
 
   const thirtyHandler = () => {
@@ -33,6 +40,10 @@ const LeaderboardSpaces = () => {
     setNinetyState(false);
     setYearState(false);
     setThirtyState(true);
+    setActive2(true);
+    setActive1(false);
+    setActive3(false);
+    setActive4(false);
   };
 
   const ninetyHandler = () => {
@@ -40,6 +51,10 @@ const LeaderboardSpaces = () => {
     setThirtyState(false);
     setYearState(false);
     setNinetyState(true);
+    setActive3(true);
+    setActive1(false);
+    setActive2(false);
+    setActive4(false);
   };
 
   const yearHandler = () => {
@@ -47,6 +62,10 @@ const LeaderboardSpaces = () => {
     setThirtyState(false);
     setNinetyState(false);
     setYearState(true);
+    setActive4(true);
+    setActive2(false);
+    setActive3(false);
+    setActive1(false);
   };
 
   const propSortHandler = () => {
@@ -199,9 +218,7 @@ const LeaderboardSpaces = () => {
   return (
     <div className="single-main">
       {loading ? (
-        <div className="loader">
-          <ScaleLoader height={50} color={"#ffab33"} className="loader" />
-        </div>
+        <div className="loader-blank"></div>
       ) : (
         <>
           <div className="title-date">
@@ -209,16 +226,28 @@ const LeaderboardSpaces = () => {
               <h1>Leaderboard: &nbsp;Most Active Spaces</h1>
             </div>
             <div className="date-toggle">
-              <button className="sevenday" onClick={sevenHandler}>
+              <button
+                style={{ color: active1 ? "#418ade" : "#ffffff" }}
+                onClick={sevenHandler}
+              >
                 7d
               </button>
-              <button className="thirtyday" onClick={thirtyHandler}>
+              <button
+                style={{ color: active2 ? "#418ade" : "#ffffff" }}
+                onClick={thirtyHandler}
+              >
                 30d
               </button>
-              <button className="ninetyday" onClick={ninetyHandler}>
+              <button
+                style={{ color: active3 ? "#418ade" : "#ffffff" }}
+                onClick={ninetyHandler}
+              >
                 90d
               </button>
-              <button className="yearday" onClick={yearHandler}>
+              <button
+                style={{ color: active4 ? "#418ade" : "#ffffff" }}
+                onClick={yearHandler}
+              >
                 365d
               </button>
             </div>
@@ -242,7 +271,14 @@ const LeaderboardSpaces = () => {
                     <tbody>
                       {sevenData.map((space, index) => (
                         <tr>
-                          <td>{space[0]}</td>
+                          <td>
+                            <a
+                              href={"https://snapshot.org/#/".concat(space[0])}
+                              className="table-links"
+                            >
+                              {space[0]}
+                            </a>
+                          </td>
                           <td className="validator-voters">
                             {space[1].toLocaleString()}
                           </td>
@@ -257,7 +293,14 @@ const LeaderboardSpaces = () => {
                     <tbody>
                       {thirtyData.map((space, index) => (
                         <tr>
-                          <td>{space[0]}</td>
+                          <td>
+                            <a
+                              href={"https://snapshot.org/#/".concat(space[0])}
+                              className="table-links"
+                            >
+                              {space[0]}
+                            </a>
+                          </td>
                           <td className="validator-voters">
                             {space[1].toLocaleString()}
                           </td>
@@ -272,7 +315,14 @@ const LeaderboardSpaces = () => {
                     <tbody>
                       {ninetyData.map((space, index) => (
                         <tr>
-                          <td>{space[0]}</td>
+                          <td>
+                            <a
+                              href={"https://snapshot.org/#/".concat(space[0])}
+                              className="table-links"
+                            >
+                              {space[0]}
+                            </a>
+                          </td>
                           <td className="validator-voters">
                             {space[1].toLocaleString()}
                           </td>
@@ -287,7 +337,14 @@ const LeaderboardSpaces = () => {
                     <tbody>
                       {yearData.map((space, index) => (
                         <tr>
-                          <td>{space[0]}</td>
+                          <td>
+                            <a
+                              href={"https://snapshot.org/#/".concat(space[0])}
+                              className="table-links"
+                            >
+                              {space[0]}
+                            </a>
+                          </td>
                           <td className="validator-voters">
                             {space[1].toLocaleString()}
                           </td>
@@ -320,7 +377,14 @@ const LeaderboardSpaces = () => {
                     <tbody>
                       {sevenDataProps.map((space, index) => (
                         <tr>
-                          <td>{space[0]}</td>
+                          <td>
+                            <a
+                              href={"https://snapshot.org/#/".concat(space[0])}
+                              className="table-links"
+                            >
+                              {space[0]}
+                            </a>
+                          </td>
                           <td className="validator-voters">
                             {space[1].toLocaleString()}
                           </td>
@@ -335,7 +399,14 @@ const LeaderboardSpaces = () => {
                     <tbody>
                       {thirtyDataProps.map((space, index) => (
                         <tr>
-                          <td>{space[0]}</td>
+                          <td>
+                            <a
+                              href={"https://snapshot.org/#/".concat(space[0])}
+                              className="table-links"
+                            >
+                              {space[0]}
+                            </a>
+                          </td>
                           <td className="validator-voters">
                             {space[1].toLocaleString()}
                           </td>
@@ -350,7 +421,14 @@ const LeaderboardSpaces = () => {
                     <tbody>
                       {ninetyDataProps.map((space, index) => (
                         <tr>
-                          <td>{space[0]}</td>
+                          <td>
+                            <a
+                              href={"https://snapshot.org/#/".concat(space[0])}
+                              className="table-links"
+                            >
+                              {space[0]}
+                            </a>
+                          </td>
                           <td className="validator-voters">
                             {space[1].toLocaleString()}
                           </td>
@@ -365,7 +443,14 @@ const LeaderboardSpaces = () => {
                     <tbody>
                       {yearDataProps.map((space, index) => (
                         <tr>
-                          <td>{space[0]}</td>
+                          <td>
+                            <a
+                              href={"https://snapshot.org/#/".concat(space[0])}
+                              className="table-links"
+                            >
+                              {space[0]}
+                            </a>
+                          </td>
                           <td className="validator-voters">
                             {space[1].toLocaleString()}
                           </td>

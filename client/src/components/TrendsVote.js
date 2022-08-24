@@ -11,16 +11,17 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import ScaleLoader from "react-spinners/ScaleLoader";
 
 const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 
 const TrendsVote = () => {
   const [votesMonthly, setVotesMonthly] = useState([]);
   const [votesWeekly, setVotesWeekly] = useState([]);
-  const [weekState, setWeekState] = useState(false);
-  const [monthState, setMonthState] = useState(true);
+  const [weekState, setWeekState] = useState(true);
+  const [monthState, setMonthState] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [active1, setActive1] = useState(true);
+  const [active2, setActive2] = useState(false);
 
   const voteChartDates = votesMonthly.map((item) => {
     return item[0].slice(0, 7);
@@ -38,11 +39,15 @@ const TrendsVote = () => {
   const weekHandler = () => {
     setMonthState(false);
     setWeekState(true);
+    setActive1(true);
+    setActive2(false);
   };
 
   const monthHandler = () => {
     setWeekState(false);
     setMonthState(true);
+    setActive2(true);
+    setActive1(false);
   };
 
   ChartJS.register(
@@ -162,9 +167,7 @@ const TrendsVote = () => {
   return (
     <div className="single-main">
       {loading ? (
-        <div className="loader">
-          <ScaleLoader height={50} color={"#ffab33"} className="loader" />
-        </div>
+        <div className="loader-blank"></div>
       ) : (
         <>
           <div className="title-date">
@@ -172,10 +175,16 @@ const TrendsVote = () => {
               <h1>Trends: &nbsp;Unique Voters</h1>
             </div>
             <div className="date-toggle">
-              <button className="weekly" onClick={weekHandler}>
+              <button
+                style={{ color: active1 ? "#418ade" : "#ffffff" }}
+                onClick={weekHandler}
+              >
                 Weekly
               </button>
-              <button className="monthly" onClick={monthHandler}>
+              <button
+                style={{ color: active2 ? "#418ade" : "#ffffff" }}
+                onClick={monthHandler}
+              >
                 Monthly
               </button>
             </div>
