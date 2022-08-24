@@ -223,7 +223,7 @@ const LeaderboardSpaces = () => {
         <>
           <div className="title-date">
             <div className="table-title">
-              <h1>Leaderboard: &nbsp;Most Active Spaces</h1>
+              <h1>Leaderboard: Most Active Spaces</h1>
             </div>
             <div className="date-toggle">
               <button

@@ -17,11 +17,11 @@ const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 const TrendsProp = () => {
   const [propsMonthly, setPropsMonthly] = useState([]);
   const [propsWeekly, setPropsWeekly] = useState([]);
-  const [weekState, setWeekState] = useState(true);
-  const [monthState, setMonthState] = useState(false);
+  const [weekState, setWeekState] = useState(false);
+  const [monthState, setMonthState] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [active1, setActive1] = useState(true);
-  const [active2, setActive2] = useState(false);
+  const [active1, setActive1] = useState(false);
+  const [active2, setActive2] = useState(true);
 
   const propChartDates = propsMonthly.map((item) => {
     return item[0].slice(0, 7);
@@ -172,7 +172,7 @@ const TrendsProp = () => {
         <>
           <div className="title-date">
             <div className="table-title">
-              <h1>Trends: &nbsp;Unique Proposals</h1>
+              <h1>Trends: Unique Proposals</h1>
             </div>
             <div className="date-toggle">
               <button

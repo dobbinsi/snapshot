@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Flipside } from "@flipsidecrypto/sdk";
 import {
   Chart as ChartJS,
@@ -269,6 +269,7 @@ const Breakdown = () => {
     labels: voteChartDates,
     datasets: [
       {
+        label: "Voters",
         data: voteChartAmounts,
         backgroundColor: "#ffab33",
         borderColor: ["#4b423f"],
@@ -308,7 +309,6 @@ const Breakdown = () => {
     );
     const query = getQuery3(space);
     const result = flipside.query.run(query).then((records) => {
-      console.log(records.rows);
       setVotesMonthly(records.rows);
     });
   };

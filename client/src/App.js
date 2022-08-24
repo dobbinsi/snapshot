@@ -1,21 +1,16 @@
 import "./App.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import BigNumbers from "./components/BigNumbers";
 import LeaderboardSpaces from "./components/LeaderboardSpaces";
 import LeaderboardUsers from "./components/LeaderboardUsers";
 import TrendsProp from "./components/TrendsProp";
 import TrendsVote from "./components/TrendsVote";
 import Breakdown from "./components/Breakdown";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import snapjawn from "./logos/snapshot.svg";
 import { motion } from "framer-motion";
 import { Switch } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 
 const useStyles = makeStyles({
   root: {
@@ -49,11 +44,9 @@ const useStyles = makeStyles({
       top: "6px",
     },
     "&:after": {
-      // content: "'All'",
       left: "8px",
     },
     "&:before": {
-      // content: "'Search'",
       right: "7px",
     },
   },
@@ -122,7 +115,6 @@ function App() {
           <LeaderboardUsers />
           <TrendsProp />
           <TrendsVote />
-          <Footer />
         </>
       )}
     </div>
