@@ -42,10 +42,6 @@ body {
   height: 50px;
 }
 
-.txt-main {
-  margin-right: 5px;
-}
-
 .footer {
   position: relative;
   bottom: 0;
@@ -102,8 +98,7 @@ body {
 .chart-area-breakdown {
   width: 90%;
   margin: auto;
-  margin-top: 20px;
-  margin-bottom: 60px;
+  margin-top: 70px;
   text-align: center;
 }
 
@@ -117,7 +112,6 @@ body {
 }
 
 .breakdown {
-  /* width: 90%; */
   margin: auto;
   margin-top: 20px;
   padding: 20px;
@@ -134,8 +128,6 @@ body {
   display: flex;
   justify-content: space-between;
   background-color: transparent;
-  /* margin-bottom: 40px; */
-  /* margin-top: -40px; */
   column-gap: 30px;
 }
 
@@ -143,8 +135,6 @@ body {
   min-height: 350px;
   width: 48%;
   padding: 20px;
-  /* border-radius: 5px;
-  border: 0.5px solid #8b949e; */
 }
 
 .table-main {
@@ -332,7 +322,7 @@ th.first-column {
 .space-input {
   padding: 8px;
   border-radius: 10px;
-  width: 300px;
+  width: 200px;
   box-shadow: 0 0 5px 1px #e5e7eb;
 }
 
@@ -370,12 +360,11 @@ th.first-column {
   position: relative;
   left: 47.5%;
   margin-top: 100px;
-  /* margin-bottom: 250px; */
 }
 
 .loader-bottom {
   position: relative;
-  /* right: 50%; */
+  margin-top: 20vh;
 }
 
 .table-links {
@@ -386,4 +375,12 @@ th.first-column {
 .table-links:visited {
   color: inherit;
   text-decoration: none;
+}
+
+.breakdown-footer {
+  margin-top: 35vh;
+}
+
+.loaded-footer {
+  margin-top: 70px;
 }

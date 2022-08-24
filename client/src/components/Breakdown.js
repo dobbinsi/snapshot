@@ -12,6 +12,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import Footer from "./Footer";
 
 const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 
@@ -25,7 +26,14 @@ const getQuery1 = (space) => {
 
 const getQuery2 = (space) => {
   const query = {
-    sql: `select proposal_title, count(distinct(id)) as vote_count, row_number () over (order by vote_count desc) as count from ethereum.core.ez_snapshot where space_id = '${space}' group by 1 order by 2 desc limit 10`,
+    sql: `select 
+    proposal_title, 
+    count(distinct(id)) as vote_count
+    from ethereum.core.ez_snapshot 
+    where space_id = '${space}' 
+    group by proposal_title 
+    order by vote_count 
+    desc limit 10`,
     ttlMinutes: 10,
   };
   return query;
@@ -66,7 +74,14 @@ const getQuery3 = (space) => {
 
 const getQuery4 = (space) => {
   const query = {
-    sql: `SELECT voter, min(vote_timestamp) as first_vote, count(DISTINCT id) as total_votes from ethereum.core.ez_snapshot where space_id = '${space}' group by 1 order by 3 desc limit 10`,
+    sql: `SELECT voter, 
+    min(vote_timestamp) as first_vote, 
+    count(DISTINCT id) as total_votes 
+    from ethereum.core.ez_snapshot 
+    where space_id = '${space}'
+    group by voter 
+    order by total_votes 
+    desc limit 10`,
     ttlMinutes: 10,
   };
   return query;
@@ -331,7 +346,7 @@ const Breakdown = () => {
               <input
                 className="space-input"
                 type="text"
-                placeholder="Search Spaces by ID... ex: cake.eth"
+                placeholder="ex: cake.eth"
                 onChange={handleChange}
               />
             </div>
@@ -339,9 +354,14 @@ const Breakdown = () => {
         </div>
       </div>
       {loading ? (
-        <div className="loader-bottom">
-          <ScaleLoader height={50} color={"#ffab33"} className="loader" />
-        </div>
+        <>
+          <div className="loader-bottom">
+            <ScaleLoader height={50} color={"#ffab33"} className="loader" />
+          </div>
+          <div className="breakdown-footer">
+            <Footer />
+          </div>
+        </>
       ) : (
         <>
           <>
@@ -366,18 +386,6 @@ const Breakdown = () => {
                 </h1>
                 <h2>Average Turnout</h2>
               </div>
-            </div>
-            <div className="chart-area-breakdown">
-              <h2>Top 10 Proposals by Number of Voters</h2>
-              <Bar
-                className="top-props"
-                options={propChartOptions}
-                data={propChartData}
-              />
-            </div>
-            <div className="chart-area-breakdown">
-              <h2>New Voters by Month</h2>
-              <Bar options={voteChartOptions} data={voteChartData} />
             </div>
             <div className="title-date">
               <div className="table-title">
@@ -418,6 +426,21 @@ const Breakdown = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
+            <div className="chart-area-breakdown">
+              <h2>Top 10 Proposals by Number of Voters</h2>
+              <Bar
+                className="top-props"
+                options={propChartOptions}
+                data={propChartData}
+              />
+            </div>
+            <div className="chart-area-breakdown">
+              <h2>New Voters by Month</h2>
+              <Bar options={voteChartOptions} data={voteChartData} />
+            </div>
+            <div className="loaded-footer">
+              <Footer />
             </div>
           </>
         </>
