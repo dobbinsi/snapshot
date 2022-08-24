@@ -107,6 +107,7 @@ const TrendsProp = () => {
     labels: propChartDates,
     datasets: [
       {
+        label: "Proposals",
         data: propChartAmounts,
         backgroundColor: "#ffab33",
         borderColor: ["#4b423f"],
@@ -119,6 +120,7 @@ const TrendsProp = () => {
     labels: propChartDates2,
     datasets: [
       {
+        label: "Proposals",
         data: propChartAmounts2,
         backgroundColor: "#ffab33",
         borderColor: ["#4b423f"],
@@ -141,6 +143,7 @@ const TrendsProp = () => {
     const resultPropsMonthly = flipside.query
       .run(queryPropsMonthly)
       .then((records) => {
+        console.log(records.rows);
         setPropsMonthly(records.rows);
         setLoading(false);
       });
@@ -189,14 +192,14 @@ const TrendsProp = () => {
               </button>
             </div>
           </div>
-          {weekState && (
-            <div className="chart-area">
-              <Bar options={propChartOptions} data={propChartData2} />
-            </div>
-          )}
           {monthState && (
             <div className="chart-area">
               <Bar options={propChartOptions} data={propChartData} />
+            </div>
+          )}
+          {weekState && (
+            <div className="chart-area">
+              <Bar options={propChartOptions} data={propChartData2} />
             </div>
           )}
         </>

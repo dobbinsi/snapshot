@@ -108,6 +108,7 @@ const TrendsVote = () => {
     labels: voteChartDates,
     datasets: [
       {
+        label: "Voters",
         data: voteChartAmounts,
         backgroundColor: "#ffab33",
         borderColor: ["#4b423f"],
@@ -120,6 +121,7 @@ const TrendsVote = () => {
     labels: voteChartDates2,
     datasets: [
       {
+        label: "Voters",
         data: voteChartAmounts2,
         backgroundColor: "#ffab33",
         borderColor: ["#4b423f"],
