@@ -4,7 +4,6 @@ const Footer = () => {
   return (
     <div className="footer">
       <h3>
-        Built by{" "}
         <a href="https://twitter.com/web3_analyst" className="footer-links">
           Jess the Analyst{" "}
         </a>

@@ -48,6 +48,10 @@ body {
   text-align: center;
 }
 
+.footer h3 {
+  font-weight: lighter;
+}
+
 .logo-footer {
   display: flex;
   justify-content: center;
@@ -674,7 +678,6 @@ th.first-column {
 
   .loader {
     position: relative;
-    /* left: 41%; */
     margin-top: 100px;
   }
 
