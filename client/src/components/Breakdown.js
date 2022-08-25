@@ -346,7 +346,7 @@ const Breakdown = () => {
               <input
                 className="space-input"
                 type="text"
-                placeholder="ex: cake.eth"
+                placeholder="ex: aave.eth"
                 onChange={handleChange}
               />
             </div>
@@ -356,7 +356,13 @@ const Breakdown = () => {
       {loading ? (
         <>
           <div className="loader-bottom">
-            <ScaleLoader height={50} color={"#ffab33"} className="loader" />
+            <ScaleLoader height={50} color={"#ffab33"} className="offset-bottom"/>
+          </div>
+          <div className="reminder">
+            <p>This may take a few seconds.</p>
+            <p>
+              If your results don't look right, try typing your search again!
+            </p>
           </div>
           <div className="breakdown-footer">
             <Footer />
@@ -394,7 +400,7 @@ const Breakdown = () => {
             </div>
             <div className="table-wrapper">
               <div className="table-scroll">
-                <table className="table-main">
+                <table className="table-main-mam">
                   <thead>
                     <tr>
                       <th className="first-column">Wallet Address</th>

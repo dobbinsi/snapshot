@@ -143,7 +143,6 @@ const TrendsProp = () => {
     const resultPropsMonthly = flipside.query
       .run(queryPropsMonthly)
       .then((records) => {
-        console.log(records.rows);
         setPropsMonthly(records.rows);
         setLoading(false);
       });

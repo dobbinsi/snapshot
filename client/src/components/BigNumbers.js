@@ -36,8 +36,8 @@ const BigNumbers = () => {
   return (
     <div className="triple">
       {loading ? (
-        <div className="loader">
-          <ScaleLoader height={50} color={"#ffab33"} className="loader" />
+        <div className="loader-main">
+          <ScaleLoader height={50} color={"#ffab33"} className="offset-main"/>
         </div>
       ) : (
         <>

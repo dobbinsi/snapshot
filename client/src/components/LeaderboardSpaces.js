@@ -255,7 +255,7 @@ const LeaderboardSpaces = () => {
           {voterSort ? (
             <div className="table-wrapper">
               <div className="table-scroll">
-                <table className="table-main">
+                <table className="table-main-mas">
                   <thead>
                     <tr>
                       <th className="first-column">Space ID</th>

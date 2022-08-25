@@ -6,7 +6,7 @@ const Footer = () => {
       <h3>
         Built by{" "}
         <a href="https://twitter.com/web3_analyst" className="footer-links">
-          Jess{" "}
+          Jess the Analyst{" "}
         </a>
         &{" "}
         <a href="https://twitter.com/dawbyinz" className="footer-links">
