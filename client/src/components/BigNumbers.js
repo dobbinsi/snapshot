@@ -22,22 +22,27 @@ const BigNumbers = () => {
       ttlMinutes: 10,
     };
 
-    const resultBigNumbers = flipside.query
-      .run(queryBigNumbers)
-      .then((records) => {
-        setActiveSpaces(records.rows[0][0]);
-        setTotalProps(records.rows[0][1]);
-        setPropAuthors(records.rows[0][2]);
-        setUniqueVoters(records.rows[0][3]);
-        setLoading(false);
-      });
+    try {
+      const resultBigNumbers = flipside.query
+        .run(queryBigNumbers)
+        .then((records) => {
+          setActiveSpaces(records.rows[0][0]);
+          setTotalProps(records.rows[0][1]);
+          setPropAuthors(records.rows[0][2]);
+          setUniqueVoters(records.rows[0][3]);
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log("error in BigNumbers");
+      console.log(error);
+    }
   }, []);
 
   return (
     <div className="triple">
       {loading ? (
         <div className="loader-main">
-          <ScaleLoader height={50} color={"#ffab33"} className="offset-main"/>
+          <ScaleLoader height={50} color={"#ffab33"} className="offset-main" />
         </div>
       ) : (
         <>
@@ -64,4 +69,3 @@ const BigNumbers = () => {
 };
 
 export default BigNumbers;
-

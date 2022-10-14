@@ -89,10 +89,15 @@ const LeaderboardSpaces = () => {
       ttlMinutes: 10,
     };
 
-    const resultSeven = flipside.query.run(querySeven).then((records) => {
-      setSevenData(records.rows);
-      setLoading(false);
-    });
+    try {
+      const resultSeven = flipside.query.run(querySeven).then((records) => {
+        setSevenData(records.rows);
+        setLoading(false);
+      });
+    } catch (error) {
+      console.log("error in SEVEN");
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -106,9 +111,14 @@ const LeaderboardSpaces = () => {
       ttlMinutes: 10,
     };
 
-    const resultThirty = flipside.query.run(queryThirty).then((records) => {
-      setThirtyData(records.rows);
-    });
+    try {
+      const resultThirty = flipside.query.run(queryThirty).then((records) => {
+        setThirtyData(records.rows);
+      });
+    } catch (error) {
+      console.log("error in THIRTY");
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -122,9 +132,14 @@ const LeaderboardSpaces = () => {
       ttlMinutes: 10,
     };
 
-    const resultNinety = flipside.query.run(queryNinety).then((records) => {
-      setNinetyData(records.rows);
-    });
+    try {
+      const resultNinety = flipside.query.run(queryNinety).then((records) => {
+        setNinetyData(records.rows);
+      });
+    } catch (error) {
+      console.log("error in NINETY");
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -138,9 +153,14 @@ const LeaderboardSpaces = () => {
       ttlMinutes: 10,
     };
 
-    const resultYear = flipside.query.run(queryYear).then((records) => {
-      setYearData(records.rows);
-    });
+    try {
+      const resultYear = flipside.query.run(queryYear).then((records) => {
+        setYearData(records.rows);
+      });
+    } catch (error) {
+      console.log("error in YEAR");
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -154,11 +174,16 @@ const LeaderboardSpaces = () => {
       ttlMinutes: 10,
     };
 
-    const resultSevenProps = flipside.query
-      .run(querySevenProps)
-      .then((records) => {
-        setSevenDataProps(records.rows);
-      });
+    try {
+      const resultSevenProps = flipside.query
+        .run(querySevenProps)
+        .then((records) => {
+          setSevenDataProps(records.rows);
+        });
+    } catch (error) {
+      console.log("error in SevenProps");
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -172,11 +197,16 @@ const LeaderboardSpaces = () => {
       ttlMinutes: 10,
     };
 
-    const resultThirtyProps = flipside.query
-      .run(queryThirtyProps)
-      .then((records) => {
-        setThirtyDataProps(records.rows);
-      });
+    try {
+      const resultThirtyProps = flipside.query
+        .run(queryThirtyProps)
+        .then((records) => {
+          setThirtyDataProps(records.rows);
+        });
+    } catch (error) {
+      console.log("error in ThirtyProps");
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -190,11 +220,16 @@ const LeaderboardSpaces = () => {
       ttlMinutes: 10,
     };
 
-    const resultNinetyProps = flipside.query
-      .run(queryNinetyProps)
-      .then((records) => {
-        setNinetyDataProps(records.rows);
-      });
+    try {
+      const resultNinetyProps = flipside.query
+        .run(queryNinetyProps)
+        .then((records) => {
+          setNinetyDataProps(records.rows);
+        });
+    } catch (error) {
+      console.log("error in NinetyProps");
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -208,11 +243,16 @@ const LeaderboardSpaces = () => {
       ttlMinutes: 10,
     };
 
-    const resultYearProps = flipside.query
-      .run(queryYearProps)
-      .then((records) => {
-        setYearDataProps(records.rows);
-      });
+    try {
+      const resultYearProps = flipside.query
+        .run(queryYearProps)
+        .then((records) => {
+          setYearDataProps(records.rows);
+        });
+    } catch (error) {
+      console.log("error in YearProps");
+      console.log(error);
+    }
   }, []);
 
   return (

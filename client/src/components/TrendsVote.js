@@ -14,6 +14,7 @@ import { Bar } from "react-chartjs-2";
 import Footer from "./Footer";
 
 const API_KEY = `${process.env.REACT_APP_API_KEY}`;
+console.log(API_KEY);
 
 const TrendsVote = () => {
   const [votesMonthly, setVotesMonthly] = useState([]);
@@ -141,12 +142,17 @@ const TrendsVote = () => {
       ttlMinutes: 10,
     };
 
-    const resultVotesMonthly = flipside.query
-      .run(queryVotesMonthly)
-      .then((records) => {
-        setVotesMonthly(records.rows);
-        setLoading(false);
-      });
+    try {
+      const resultVotesMonthly = flipside.query
+        .run(queryVotesMonthly)
+        .then((records) => {
+          setVotesMonthly(records.rows);
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log("error in VOTESMONTHLY");
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -160,11 +166,16 @@ const TrendsVote = () => {
       ttlMinutes: 10,
     };
 
-    const resultVotesWeekly = flipside.query
-      .run(queryVotesWeekly)
-      .then((records) => {
-        setVotesWeekly(records.rows);
-      });
+    try {
+      const resultVotesWeekly = flipside.query
+        .run(queryVotesWeekly)
+        .then((records) => {
+          setVotesWeekly(records.rows);
+        });
+    } catch (error) {
+      console.log("error in VOTESWEEKLY");
+      console.log(error);
+    }
   }, []);
 
   return (

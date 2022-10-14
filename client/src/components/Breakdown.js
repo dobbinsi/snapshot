@@ -279,61 +279,86 @@ const Breakdown = () => {
   };
 
   const runSDKApi1 = async (space) => {
-    const flipside = new Flipside(
-      API_KEY,
-      "https://node-api.flipsidecrypto.com"
-    );
-    const query = getQuery1(space);
-    const result = flipside.query.run(query).then((records) => {
-      setTotalProps(records.rows[0][1]);
-      setPropAuthors(records.rows[0][2]);
-      setUniqueVoters(records.rows[0][3]);
-    });
+    try {
+      const flipside = new Flipside(
+        API_KEY,
+        "https://node-api.flipsidecrypto.com"
+      );
+      const query = getQuery1(space);
+      const result = flipside.query.run(query).then((records) => {
+        setTotalProps(records.rows[0][1]);
+        setPropAuthors(records.rows[0][2]);
+        setUniqueVoters(records.rows[0][3]);
+      });
+    } catch (error) {
+      console.log("error in API1");
+      console.log(error);
+    }
   };
 
   const runSDKApi2 = async (space) => {
-    const flipside = new Flipside(
-      API_KEY,
-      "https://node-api.flipsidecrypto.com"
-    );
-    const query = getQuery2(space);
-    const result = flipside.query.run(query).then((records) => {
-      setPropsMonthly(records.rows);
-    });
+    try {
+      const flipside = new Flipside(
+        API_KEY,
+        "https://node-api.flipsidecrypto.com"
+      );
+      const query = getQuery2(space);
+      const result = flipside.query.run(query).then((records) => {
+        setPropsMonthly(records.rows);
+      });
+    } catch (error) {
+      console.log("error in API2");
+      console.log(error);
+    }
   };
 
   const runSDKApi3 = async (space) => {
-    const flipside = new Flipside(
-      API_KEY,
-      "https://node-api.flipsidecrypto.com"
-    );
-    const query = getQuery3(space);
-    const result = flipside.query.run(query).then((records) => {
-      setVotesMonthly(records.rows);
-    });
+    try {
+      const flipside = new Flipside(
+        API_KEY,
+        "https://node-api.flipsidecrypto.com"
+      );
+      const query = getQuery3(space);
+      const result = flipside.query.run(query).then((records) => {
+        setVotesMonthly(records.rows);
+      });
+    } catch (error) {
+      console.log("error in API3");
+      console.log(error);
+    }
   };
 
   const runSDKApi4 = async (space) => {
-    const flipside = new Flipside(
-      API_KEY,
-      "https://node-api.flipsidecrypto.com"
-    );
-    const query = getQuery4(space);
-    const result = flipside.query.run(query).then((records) => {
-      setTopTen(records.rows);
-    });
+    try {
+      const flipside = new Flipside(
+        API_KEY,
+        "https://node-api.flipsidecrypto.com"
+      );
+      const query = getQuery4(space);
+      const result = flipside.query.run(query).then((records) => {
+        setTopTen(records.rows);
+      });
+    } catch (error) {
+      console.log("error in API4");
+      console.log(error);
+    }
   };
 
   const runSDKApi5 = async (space) => {
-    const flipside = new Flipside(
-      API_KEY,
-      "https://node-api.flipsidecrypto.com"
-    );
-    const query = getQuery5(space);
-    const result = flipside.query.run(query).then((records) => {
-      setAvgTurnout(records.rows[0][1]);
-      setLoading(false);
-    });
+    try {
+      const flipside = new Flipside(
+        API_KEY,
+        "https://node-api.flipsidecrypto.com"
+      );
+      const query = getQuery5(space);
+      const result = flipside.query.run(query).then((records) => {
+        setAvgTurnout(records.rows[0][1]);
+        setLoading(false);
+      });
+    } catch (error) {
+      console.log("error in API5");
+      console.log(error);
+    }
   };
 
   return (
@@ -356,7 +381,11 @@ const Breakdown = () => {
       {loading ? (
         <>
           <div className="loader-bottom">
-            <ScaleLoader height={50} color={"#ffab33"} className="offset-bottom"/>
+            <ScaleLoader
+              height={50}
+              color={"#ffab33"}
+              className="offset-bottom"
+            />
           </div>
           <div className="reminder">
             <p>This may take a few seconds.</p>

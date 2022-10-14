@@ -140,12 +140,17 @@ const TrendsProp = () => {
       ttlMinutes: 10,
     };
 
-    const resultPropsMonthly = flipside.query
-      .run(queryPropsMonthly)
-      .then((records) => {
-        setPropsMonthly(records.rows);
-        setLoading(false);
-      });
+    try {
+      const resultPropsMonthly = flipside.query
+        .run(queryPropsMonthly)
+        .then((records) => {
+          setPropsMonthly(records.rows);
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log("error in MONTHLYCHART1");
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -159,11 +164,16 @@ const TrendsProp = () => {
       ttlMinutes: 10,
     };
 
-    const resultPropsWeekly = flipside.query
-      .run(queryPropsWeekly)
-      .then((records) => {
-        setPropsWeekly(records.rows);
-      });
+    try {
+      const resultPropsWeekly = flipside.query
+        .run(queryPropsWeekly)
+        .then((records) => {
+          setPropsWeekly(records.rows);
+        });
+    } catch (error) {
+      console.log("error in WEEKLYCHART1");
+      console.log(error);
+    }
   }, []);
 
   return (
