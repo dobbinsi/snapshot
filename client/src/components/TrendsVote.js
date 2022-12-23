@@ -14,7 +14,6 @@ import { Bar } from "react-chartjs-2";
 import Footer from "./Footer";
 
 const API_KEY = `${process.env.REACT_APP_API_KEY}`;
-console.log(API_KEY);
 
 const TrendsVote = () => {
   const [votesMonthly, setVotesMonthly] = useState([]);
