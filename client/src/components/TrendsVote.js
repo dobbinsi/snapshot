@@ -138,7 +138,7 @@ const TrendsVote = () => {
 
     const queryVotesMonthly = {
       sql: "SELECT date_trunc('month', proposal_start_time) as month, count(DISTINCT(voter)) as voter_count from ethereum.core.ez_snapshot GROUP BY month ORDER BY month",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {
@@ -162,7 +162,7 @@ const TrendsVote = () => {
 
     const queryVotesWeekly = {
       sql: "SELECT date_trunc('week', proposal_start_time) as week, count(DISTINCT(voter)) as voter_count from ethereum.core.ez_snapshot GROUP BY week ORDER BY week",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {

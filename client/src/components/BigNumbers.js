@@ -19,7 +19,7 @@ const BigNumbers = () => {
 
     const queryBigNumbers = {
       sql: "SELECT count(DISTINCT space_ID) AS Active_Spaces, count(DISTINCT proposal_id) AS total_proposals, count(DISTINCT proposal_author) AS proposal_authors, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {

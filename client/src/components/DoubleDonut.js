@@ -124,7 +124,7 @@ const DoubleDonut = () => {
 
     const queryDistSpaces = {
       sql: "with a as (select count(distinct ID) as tx, SPACE_ID from ethereum.core.ez_snapshot group by 2 order by 1 desc) select case when tx = 1 then '1 vote' when tx between 2 and 10 then '2-10 votes' when tx between 11 and 50 then '11-50 votes' when tx between 51 and 100 then '51-100 votes' when tx > 100 then '100+ votes' end as number_tx, count(distinct SPACE_ID) from a group by 1",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     const resultDistSpaces = flipside.query
@@ -142,7 +142,7 @@ const DoubleDonut = () => {
 
     const queryDistVoters = {
       sql: "with a as (select count(distinct ID) as tx, SPACE_ID from ethereum.core.ez_snapshot group by 2 order by 1 desc) select case when tx = 1 then '1 vote' when tx between 2 and 10 then '2-10 votes' when tx between 11 and 50 then '11-50 votes' when tx between 51 and 100 then '51-100 votes' when tx > 100 then '100+ votes' end as number_tx, count(distinct SPACE_ID) from a group by 1",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     const resultDistVoters = flipside.query

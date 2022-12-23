@@ -19,7 +19,7 @@ const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 const getQuery1 = (space) => {
   const query = {
     sql: `SELECT count(DISTINCT space_ID) AS Active_Spaces, count(DISTINCT proposal_id) AS total_proposals, count(DISTINCT proposal_author) AS proposal_authors, count(DISTINCT voter) AS unique_voters FROM ethereum.core.ez_snapshot WHERE space_id = '${space}'`,
-    ttlMinutes: 10,
+    ttlMinutes: 60,
   };
   return query;
 };
@@ -34,7 +34,7 @@ const getQuery2 = (space) => {
     group by proposal_title 
     order by vote_count 
     desc limit 10`,
-    ttlMinutes: 10,
+    ttlMinutes: 60,
   };
   return query;
 };
@@ -67,7 +67,7 @@ const getQuery3 = (space) => {
       group by  
           month
           order by month asc`,
-    ttlMinutes: 10,
+    ttlMinutes: 60,
   };
   return query;
 };
@@ -82,7 +82,7 @@ const getQuery4 = (space) => {
     group by voter 
     order by total_votes 
     desc limit 10`,
-    ttlMinutes: 10,
+    ttlMinutes: 60,
   };
   return query;
 };
@@ -103,7 +103,7 @@ const getQuery5 = (space) => {
             avg(turnout) as avg_turnout
         FROM prop_turnout
         GROUP BY space_id`,
-    ttlMinutes: 10,
+    ttlMinutes: 60,
   };
   return query;
 };

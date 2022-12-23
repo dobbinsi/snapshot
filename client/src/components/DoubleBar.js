@@ -158,7 +158,7 @@ const DoubleBar = () => {
 
     const queryPropsMonthly = {
       sql: "select proposal_title, count(distinct(id)) as vote_count, row_number () over (order by vote_count desc) as count from ethereum.core.ez_snapshot where space_id = 'cake.eth' group by 1 order by 2 desc limit 10",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     const resultPropsMonthly = flipside.query
@@ -176,7 +176,7 @@ const DoubleBar = () => {
 
     const queryVotesMonthly = {
       sql: "with base as (select voter, min(proposal_start_time) as first_tx from ethereum.core.ez_snapshot where space_id = 'cake.eth' group by 1), base2 as (select voter, date_trunc('month', first_tx) as month, 1 as counts from base) select month, sum(counts) as numbering from base2 group by 1",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     const resultVotesMonthly = flipside.query

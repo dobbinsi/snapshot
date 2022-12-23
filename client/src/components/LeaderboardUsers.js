@@ -12,15 +12,15 @@ const LeaderboardSpaces = () => {
   const [thirtyDataProps, setThirtyDataProps] = useState([]);
   const [ninetyDataProps, setNinetyDataProps] = useState([]);
   const [yearDataProps, setYearDataProps] = useState([]);
-  const [sevenState, setSevenState] = useState(true);
-  const [thirtyState, setThirtyState] = useState(false);
+  const [sevenState, setSevenState] = useState(false);
+  const [thirtyState, setThirtyState] = useState(true);
   const [ninetyState, setNinetyState] = useState(false);
   const [yearState, setYearState] = useState(false);
   const [voterSort, setVoterSort] = useState(true);
   const [propSort, setPropSort] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [active1, setActive1] = useState(true);
-  const [active2, setActive2] = useState(false);
+  const [active1, setActive1] = useState(false);
+  const [active2, setActive2] = useState(true);
   const [active3, setActive3] = useState(false);
   const [active4, setActive4] = useState(false);
 
@@ -86,7 +86,7 @@ const LeaderboardSpaces = () => {
 
     const querySeven = {
       sql: "SELECT voter, count(DISTINCT space_id) AS spaces, count(DISTINCT proposal_id) AS proposals FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 7 GROUP BY voter ORDER BY proposals DESC LIMIT 10",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {
@@ -108,7 +108,7 @@ const LeaderboardSpaces = () => {
 
     const queryThirty = {
       sql: "SELECT voter, count(DISTINCT space_id) AS spaces, count(DISTINCT proposal_id) AS proposals FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 30 GROUP BY voter ORDER BY proposals DESC LIMIT 10",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {
@@ -129,7 +129,7 @@ const LeaderboardSpaces = () => {
 
     const queryNinety = {
       sql: "SELECT voter, count(DISTINCT space_id) AS spaces, count(DISTINCT proposal_id) AS proposals FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 90 GROUP BY voter ORDER BY proposals DESC LIMIT 10",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {
@@ -150,7 +150,7 @@ const LeaderboardSpaces = () => {
 
     const queryYear = {
       sql: "SELECT voter, count(DISTINCT space_id) AS spaces, count(DISTINCT proposal_id) AS proposals FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 365 GROUP BY voter ORDER BY proposals DESC LIMIT 10",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {
@@ -171,7 +171,7 @@ const LeaderboardSpaces = () => {
 
     const querySevenProps = {
       sql: "SELECT voter, count(DISTINCT space_id) AS spaces, count(DISTINCT proposal_id) AS proposals FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 7 GROUP BY voter ORDER BY spaces DESC LIMIT 10",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {
@@ -194,7 +194,7 @@ const LeaderboardSpaces = () => {
 
     const queryThirtyProps = {
       sql: "SELECT voter, count(DISTINCT space_id) AS spaces, count(DISTINCT proposal_id) AS proposals FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 30 GROUP BY voter ORDER BY spaces DESC LIMIT 10",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {
@@ -217,7 +217,7 @@ const LeaderboardSpaces = () => {
 
     const queryNinetyProps = {
       sql: "SELECT voter, count(DISTINCT space_id) AS spaces, count(DISTINCT proposal_id) AS proposals FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 90 GROUP BY voter ORDER BY spaces DESC LIMIT 10",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {
@@ -240,7 +240,7 @@ const LeaderboardSpaces = () => {
 
     const queryYearProps = {
       sql: "SELECT voter, count(DISTINCT space_id) AS spaces, count(DISTINCT proposal_id) AS proposals FROM ethereum.core.ez_snapshot WHERE proposal_start_time >= CURRENT_DATE - 365 GROUP BY voter ORDER BY spaces DESC LIMIT 10",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {

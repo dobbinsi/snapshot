@@ -137,7 +137,7 @@ const TrendsProp = () => {
 
     const queryPropsMonthly = {
       sql: "SELECT date_trunc('month', proposal_start_time) as month, count(DISTINCT(proposal_id)) as proposal_count from ethereum.core.ez_snapshot GROUP BY month ORDER BY month",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {
@@ -161,7 +161,7 @@ const TrendsProp = () => {
 
     const queryPropsWeekly = {
       sql: "SELECT date_trunc('week', proposal_start_time) as week, count(DISTINCT(proposal_id)) as proposal_count from ethereum.core.ez_snapshot GROUP BY week ORDER BY week",
-      ttlMinutes: 10,
+      ttlMinutes: 60,
     };
 
     try {
