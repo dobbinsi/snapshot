@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { Switch } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Analytics from "@vercel/analytics";
 
 const useStyles = makeStyles({
   root: {
@@ -117,6 +118,7 @@ function App() {
           <TrendsVote />
         </>
       )}
+      <Analytics />
     </div>
   );
 }
